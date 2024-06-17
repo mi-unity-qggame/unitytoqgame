@@ -30,11 +30,11 @@ http://tennews.cn/MiQGameConverter.unitypackage
 
 **二、使用步骤**
 
-\1. **点击菜单栏 小米快游戏/打包设置**
+1. **点击菜单栏 小米快游戏/打包设置**
 
 ![](images/Unity转快游戏使用说明文档.002.png)
 
-\2. **弹出操作窗口**
+2. **弹出操作窗口**
 
 ![](images/Unity转快游戏使用说明文档.003.png)
 
@@ -51,7 +51,7 @@ http://tennews.cn/MiQGameConverter.unitypackage
 9. 包体超限：由于快游戏包体大小限定，unity游戏资源较多的情况下，可以使用此项，把打出来资源放在服务器上，使用远程资源加载。
 10. 打包：执行打包操作。
 
-\3. **打包完成会打开打包目录。如下所示：**
+3. **打包完成会打开打包目录。如下所示：**
 
 ![](images/Unity转快游戏使用说明文档.004.png)
 
@@ -79,21 +79,19 @@ MQGame即为**小米快游戏工程**。
 
 unity转快游戏，有些unity功能是不能直接在快游戏里面使用的，需要在unity层使用的时候做一些适配工作。
 
-\1. **Websocket（可选）**
+1. **Websocket（可选）**
 
 示例：WebSocket服务器搭建完成后，在客户端场景物体上挂载示例脚本Connection，并修改Connection脚本中的IP地址即可。
 
 ![](images/Unity转快游戏使用说明文档.008.png)
 
-\2. **InputField（必须）**
+2. **InputField（必须）**
 
 在挂载输入框组件的物体上，需手动挂载一个脚本。 如果使用的是 InputField (Legacy) 组件则手动挂载 WebglInput 脚本，使用的是 InputField (TMP)组件则手动挂载 WebglInputTMP 脚本。
 
 ![](images/Unity转快游戏使用说明文档.009.png)
 
 ![](images/Unity转快游戏使用说明文档.010.png)
-
-![](images/Unity转快游戏使用说明文档.011.png)
 
 **四、快游戏功能接入**
 
@@ -105,53 +103,53 @@ unity转快游戏，有些unity功能是不能直接在快游戏里面使用的�
 
 例子：
 
-|JSON<br>//初始化<br>MiBridge.Instance.Init();|
+|C#<br>//初始化<br>MiBridge.Instance.Init();|
 | :- |
 **2、 登录和获取用户信息**
 
-|JSON<br>//快游戏小米账号登录<br>MiBridge.Instance.Login((accountId, session) => {<br>`    `MiBridge.Instance.QGLog("login account id={0}, session={1}", accountId, session);<br>`    `MiBridge.Instance.GetUserInfo((nickName, avatarUrl, gender) =><br>`    `{<br>`        `MiBridge.Instance.QGLog("get user info nickName={0}, avatar={1}, gender={2}", nickName, avatarUrl, gender);<br>`    `}, (code, msg) =><br>`    `{<br>`        `MiBridge.Instance.QGLog("get user info error code={0}, msg={1}", code, msg);<br>`    `});<br>}, (code, msg) => {<br>`    `MiBridge.Instance.QGLog("login error code={0}, msg={1}", code, msg);<br>});|
+|C#<br>//快游戏小米账号登录<br>MiBridge.Instance.Login((accountId, session) => {<br>`    `MiBridge.Instance.QGLog("login account id={0}, session={1}", accountId, session);<br>`    `MiBridge.Instance.GetUserInfo((nickName, avatarUrl, gender) =><br>`    `{<br>`        `MiBridge.Instance.QGLog("get user info nickName={0}, avatar={1}, gender={2}", nickName, avatarUrl, gender);<br>`    `}, (code, msg) =><br>`    `{<br>`        `MiBridge.Instance.QGLog("get user info error code={0}, msg={1}", code, msg);<br>`    `});<br>}, (code, msg) => {<br>`    `MiBridge.Instance.QGLog("login error code={0}, msg={1}", code, msg);<br>});|
 | :- |
 **3、支付**
 
 支付接入需要服务器接入，具体服务器接入方式请查看小米开发者文档：https://dev.mi.com/distribute/doc/details?pId=1109。
 
-|JSON<br>//订单信息<br>OrderInfo orderInfo = new OrderInfo<br>{<br>`    `appId = "1",               // 游戏唯一ID<br>`    `appAccountId = 12,         // 与登录接口返回的appAccountId一致<br>`    `session = "1",             // 与登录接口返回的session一致<br>`    `cpOrderId = "1",           // 游戏订单号<br>`    `cpUserInfo = "",           // cp透传信息 (非空)<br>`    `displayName = "1",         // 支付的时候显示的商品名称<br>`    `feeValue = 100,            // 价格 单位分<br>`    `sign = "1",                // 签名 用于校验 具体生成方式，请查看：https://dev.mi.com/distribute/doc/details?pId=1109<br>};<br><br>//支付接口<br>MiBridge.Instance.Pay(orderInfo, (success, code, msg) => {<br>`    `MiBridge.Instance.QGLog("pay result success={0}, code={1}, msg={2}", success, code, msg);<br>});|
+|C#<br>//订单信息<br>OrderInfo orderInfo = new OrderInfo<br>{<br>`    `appId = "1",               // 游戏唯一ID<br>`    `appAccountId = 12,         // 与登录接口返回的appAccountId一致<br>`    `session = "1",             // 与登录接口返回的session一致<br>`    `cpOrderId = "1",           // 游戏订单号<br>`    `cpUserInfo = "",           // cp透传信息 (非空)<br>`    `displayName = "1",         // 支付的时候显示的商品名称<br>`    `feeValue = 100,            // 价格 单位分<br>`    `sign = "1",                // 签名 用于校验 具体生成方式，请查看：https://dev.mi.com/distribute/doc/details?pId=1109<br>};<br><br>//支付接口<br>MiBridge.Instance.Pay(orderInfo, (success, code, msg) => {<br>`    `MiBridge.Instance.QGLog("pay result success={0}, code={1}, msg={2}", success, code, msg);<br>});|
 | :- |
 **4、广告**
 
 **4.1、Banner广告**
 
-|JSON<br>/// <summary><br>/// 创建banner广告<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>` `MiBridge.Instance.CreateBannerAd("81e6cbe35e56b53eebbc547fd1bc5614", new AdEventListener { <br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# ad error");<br>`    `},<br>    <br>`    `onAdClose = (isEnd) => {<br>`        `MiBridge.Instance.QGLog("c# ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# ad load");<br>`    `},<br>});<br><br>/// <summary><br>/// 隐藏广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.HideAd("81e6cbe35e56b53eebbc547fd1bc5614");<br><br>/// <summary><br>/// 销毁广告，销毁后，如需重新显示，请先调用创建广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.DestroyAd("81e6cbe35e56b53eebbc547fd1bc5614");|
+|C#<br>/// 创建banner广告<br>` `MiBridge.Instance.CreateBannerAd("81e6cbe35e56b53eebbc547fd1bc5614", new AdEventListener { <br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# ad error");<br>`    `},<br>    <br>`    `onAdClose = (isEnd) => {<br>`        `MiBridge.Instance.QGLog("c# ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# ad load");<br>`    `},<br>});<br>/// 隐藏广告<br>MiBridge.Instance.HideAd("81e6cbe35e56b53eebbc547fd1bc5614");<br>/// 销毁广告，销毁后，如需重新显示，请先调用创建广告<br>MiBridge.Instance.DestroyAd("81e6cbe35e56b53eebbc547fd1bc5614");|
 | :- |
 **4.2、插屏广告**
 
-|JSON<br>/// <summary><br>/// 创建插屏广告<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>MiBridge.Instance.CreateInterstitialAd("f54f3dfc0ba63cf3dbf582816ee069d7", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad load");<br>`    `},<br>});<br><br>/// <summary><br>/// 展示插屏广告测试<br>/// </summary><br>MiBridge.Instance.ShowAd("f54f3dfc0ba63cf3dbf582816ee069d7");<br><br>/// <summary><br>/// 销毁插屏广告测试<br>/// </summary><br>MiBridge.Instance.DestroyAd("f54f3dfc0ba63cf3dbf582816ee069d7");|
+|C#<br>/// 创建插屏广告<br><br>MiBridge.Instance.CreateInterstitialAd("f54f3dfc0ba63cf3dbf582816ee069d7", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# insert ad load");<br>`    `},<br>});<br><br>/// 展示插屏广告测试<br>MiBridge.Instance.ShowAd("f54f3dfc0ba63cf3dbf582816ee069d7");<br><br>/// 销毁插屏广告测试<br>MiBridge.Instance.DestroyAd("f54f3dfc0ba63cf3dbf582816ee069d7");|
 | :- |
 **4.3、Native广告**
 
-|JSON<br>/// <summary><br>/// 创建原生广告<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>MiBridge.Instance.CreateNativeAd("da11b7e8c582ee7d1acf16a627ea6b34", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# native ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `MiBridge.Instance.QGLog("c# native ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# native ad load");<br>`    `},<br>});<br><br>/// <summary><br>/// 加载广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.LoadAd("da11b7e8c582ee7d1acf16a627ea6b34");<br><br>/// <summary><br>/// 展示广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.ShowAd("da11b7e8c582ee7d1acf16a627ea6b34");<br><br>/// <summary><br>/// 销毁广告，销毁后，如需重新显示，请先调用创建广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.DestroyAd("da11b7e8c582ee7d1acf16a627ea6b34");|
+|C#<br>/// 创建原生广告<br>MiBridge.Instance.CreateNativeAd("da11b7e8c582ee7d1acf16a627ea6b34", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# native ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `MiBridge.Instance.QGLog("c# native ad close");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# native ad load");<br>`    `},<br>});<br><br>/// 加载广告<br>MiBridge.Instance.LoadAd("da11b7e8c582ee7d1acf16a627ea6b34");<br><br>/// 展示广告<br>MiBridge.Instance.ShowAd("da11b7e8c582ee7d1acf16a627ea6b34");<br><br>/// 销毁广告，销毁后，如需重新显示，请先调用创建广告<br>MiBridge.Instance.DestroyAd("da11b7e8c582ee7d1acf16a627ea6b34");|
 | :- |
 **4.4、激励视频广告**
 
-|JSON<br>/// <summary><br>/// 创建激励视频广告<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>MiBridge.Instance.CreateRewardedVideoAd("77295ab0558fa54fc5cc9ed6a28b6da7", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# reward ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `string info = "success";<br>`        `if (!end) {<br>`            `// end == true 说明激励视频播放完毕，是正常结束<br>`            `info = "failure";<br>`        `}<br>`        `MiBridge.Instance.QGLog($"c# reward ad close end={info}");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# reward ad load");<br>`    `},<br>});<br><br>/// <summary><br>/// 加载广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.LoadAd("77295ab0558fa54fc5cc9ed6a28b6da7");<br><br>/// <summary><br>/// 展示广告<br>/// </summary><br>/// <param name="adId"></param><br>MiBridge.Instance.ShowAd("77295ab0558fa54fc5cc9ed6a28b6da7");|
+|C#<br>/// 创建激励视频广告<br>MiBridge.Instance.CreateRewardedVideoAd("77295ab0558fa54fc5cc9ed6a28b6da7", new AdEventListener<br>{<br>`    `onAdError = (code, msg) => {<br>`        `MiBridge.Instance.QGLog("c# reward ad error");<br>`    `},<br><br>`    `onAdClose = (end) => {<br>`        `string info = "success";<br>`        `if (!end) {<br>`            `// end == true 说明激励视频播放完毕，是正常结束<br>`            `info = "failure";<br>`        `}<br>`        `MiBridge.Instance.QGLog($"c# reward ad close end={info}");<br>`    `},<br><br>`    `onAdLoad = (info) => {<br>`        `MiBridge.Instance.QGLog("c# reward ad load");<br>`    `},<br>});<br><br>/// 加载广告<br>MiBridge.Instance.LoadAd("77295ab0558fa54fc5cc9ed6a28b6da7");<br><br>/// 展示广告<br>MiBridge.Instance.ShowAd("77295ab0558fa54fc5cc9ed6a28b6da7");|
 | :- |
 **4.5、互推盒子广告**
 
-|JSON<br>/// <summary><br>/// 展示互动盒子广告<br>/// 互动盒子广告介绍：https://dev.mi.com/distribute/doc/details?pId=1442<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="type"><br>/// 广告类型: <br>/// 1. type=100，    互推盒子-九宫格 <br>/// 2. type=120，    互推盒子-横幅 <br>/// 3. type=130/140，互推盒子-抽屉，    白色背景为130，黑色背景为140<br>/// 4. type=150，    互推盒子-悬浮球<br>/// </param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>MiBridge.Instance.ShowRecommendAd("da11b7e8c582ee7d1acf16a627ea6b34", 100, (success, msg) => <br>{<br><br>});<br><br>/// <summary><br>/// 关闭互动盒子广告<br>/// 互动盒子广告介绍：https://dev.mi.com/distribute/doc/details?pId=1442<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="type"><br>/// 广告类型: <br>/// 1. type=100，    互推盒子-九宫格 <br>/// 2. type=120，    互推盒子-横幅 <br>/// 3. type=130/140，互推盒子-抽屉，    白色背景为130，黑色背景为140<br>/// 4. type=150，    互推盒子-悬浮球<br>/// </param><br>/// <param name="listener">监听器</param><br>MiBridge.Instance.CloseRecommendAd("da11b7e8c582ee7d1acf16a627ea6b34", 100, (success, msg) =><br>{<br><br>});|
+|C#<br>/// <summary><br>/// 展示互动盒子广告<br>/// 互动盒子广告介绍：https://dev.mi.com/distribute/doc/details?pId=1442<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="type"><br>/// 广告类型: <br>/// 1. type=100，    互推盒子-九宫格 <br>/// 2. type=120，    互推盒子-横幅 <br>/// 3. type=130/140，互推盒子-抽屉，    白色背景为130，黑色背景为140<br>/// 4. type=150，    互推盒子-悬浮球<br>/// </param><br>/// <param name="listener">监听器</param><br>/// <returns></returns><br>MiBridge.Instance.ShowRecommendAd("da11b7e8c582ee7d1acf16a627ea6b34", 100, (success, msg) => <br>{<br><br>});<br><br>/// <summary><br>/// 关闭互动盒子广告<br>/// 互动盒子广告介绍：https://dev.mi.com/distribute/doc/details?pId=1442<br>/// </summary><br>/// <param name="adId">广告id</param><br>/// <param name="type"><br>/// 广告类型: <br>/// 1. type=100，    互推盒子-九宫格 <br>/// 2. type=120，    互推盒子-横幅 <br>/// 3. type=130/140，互推盒子-抽屉，    白色背景为130，黑色背景为140<br>/// 4. type=150，    互推盒子-悬浮球<br>/// </param><br>/// <param name="listener">监听器</param><br>MiBridge.Instance.CloseRecommendAd("da11b7e8c582ee7d1acf16a627ea6b34", 100, (success, msg) =><br>{<br><br>});|
 | :- |
 **5、文件操作**
 
 **5.1、读文件**
 
-|JSON<br>MiBridge.Instance.ReadFile("log.txt", (data, len) =><br>{<br>`    `string test = System.Text.Encoding.ASCII.GetString(data);<br>`    `MiBridge.Instance.QGLog("MiBridge.Instance.ReadFile success {0}, {1}", len, test);<br>}, (msg) =><br>{<br>`    `MiBridge.Instance.QGLog("read file failure {0}", msg);<br>});|
+|C#<br>MiBridge.Instance.ReadFile("log.txt", (data, len) =><br>{<br>`    `string test = System.Text.Encoding.ASCII.GetString(data);<br>`    `MiBridge.Instance.QGLog("MiBridge.Instance.ReadFile success {0}, {1}", len, test);<br>}, (msg) =><br>{<br>`    `MiBridge.Instance.QGLog("read file failure {0}", msg);<br>});|
 | :- |
 **5.2、写文件**
 
-|JSON<br>string myString = "Hello world!!!";<br>byte[] data = Encoding.UTF8.GetBytes(myString);<br>MiBridge.Instance.WriteFile("log.txt", data, false, (success, msg) =><br>{<br>`    `MiBridge.Instance.QGLog("write file {0}, {1}", success, msg);<br>});|
+|C#<br>string myString = "Hello world!!!";<br>byte[] data = Encoding.UTF8.GetBytes(myString);<br>MiBridge.Instance.WriteFile("log.txt", data, false, (success, msg) =><br>{<br>`    `MiBridge.Instance.QGLog("write file {0}, {1}", success, msg);<br>});|
 | :- |
 **5.3、删除文件**
 
-|JSON<br>MiBridge.Instance.DeleteFile("log.txt", (success) => { <br>});|
+|C#<br>MiBridge.Instance.DeleteFile("log.txt", (success) => { <br>});|
 | :- |
 **6、游戏图标**
 
@@ -167,7 +165,7 @@ unity转快游戏，有些unity功能是不能直接在快游戏里面使用的�
 | :- |
 删除操作：
 
-|JSON<br>MiBridge.Instance.DeleteKV("int");|
+|C#<br>MiBridge.Instance.DeleteKV("int");|
 | :- |
 **8、日志打印到快游戏平台**
 
@@ -189,10 +187,10 @@ unity转快游戏，有些unity功能是不能直接在快游戏里面使用的�
 
 **六、生成证书**
 
-\1. [**下载快应用IDE**](https://www.quickapp.cn/)
+1. [**下载快应用IDE**](https://www.quickapp.cn/)
 
 ![](images/Unity转快游戏使用说明文档.013.png)
 
-\2. **打开一个工程（任意一个工程）**
+2. **打开一个工程（任意一个工程）**
 
 ![](images/Unity转快游戏使用说明文档.014.jpeg)
