@@ -6,11 +6,18 @@ Removed - 删除功能/接口
 Fixed - 修复问题
 Others - 其他 
 -->
+## 2025-12-29 v1.6.0 【重要更新】
+### Feature
+* 重要：新增 WebAudio支持
+* 普通：新增`VibrateShort`、`VibrateLong`接口，用于`触发较短/长时间震动`
+### Fixed
+* 普通：修复已知音频问题
+
 ## 2025-11-19 v1.5.9 【重要更新】
 ### Feature
 * 重要：新增修复多点触控可能存在粘连问题的类“MiTouchInputOverride”
 * 普通：增加`GetSystemInfoSync`接口，用于同步获取系统信息
-* 普通：新增`GetMenuButtonBoundingClientRect`接口，用于`获取菜单按钮（右上角胶囊按钮）的布局位置信息
+* 普通：新增`GetMenuButtonBoundingClientRect`接口，用于`获取菜单按钮（右上角胶囊按钮）的布局位置信息`
 * 普通：新增 `On/OffTouchStart`、`On/OffTouchMove`、`On/OffTouchEnd`、`On/OffTouchCancel` 触摸事件接口
 ### Fixed
 * 普通：修复程序集编译问题
