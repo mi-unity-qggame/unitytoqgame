@@ -1,55 +1,55 @@
 ﻿# Unity WeGL 小米小游戏适配
 
-## 📌 目录
-- [简介](#-简介)
-- [安装](#️-安装)
-- [使用](#-使用)
-- [性能优化](#-性能优化)
-- [能力适配](#-能力适配)
-- [常见问题 (QA)](#-常见问题-qa)
+## 📌 目录  
+- [简介](#-简介)  
+- [安装](#️-安装)  
+- [使用](#-使用)  
+- [性能优化](#-性能优化)  
+- [能力适配](#-能力适配)  
+- [常见问题 (QA)](#-常见问题-qa)  
 
-## 📖 简介
+## 📖 简介  
 
-### 概述
-欢迎使用 Unity WebGL 小米小游戏适配（转换）方案，本方案设计目的是**降低 Unity 游戏转换到小米小游戏的开发成本**。基于WebAssembly技术，无需更换Unity引擎与重写核心代码的情况下将原有游戏项目适配到小米小游戏。
-👉 工具与文档项目开放地址：[Unity WebGL小米小游戏适配方案](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165)
+### 概述  
+欢迎使用 Unity WebGL 小米小游戏适配（转换）方案，本方案设计目的是**降低 Unity 游戏转换到小米小游戏的开发成本**。基于WebAssembly技术，无需更换Unity引擎与重写核心代码的情况下将原有游戏项目适配到小米小游戏。  
+👉 工具与文档项目开放地址：[Unity WebGL小米小游戏适配方案](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165)  
 
-### 支持引擎
-转换插件理论上支持的引擎版本涵盖：**Unity2019~2022、团结引擎1.x**
-> 建议使用2021及以上版本，支持设置纹理ASTC压缩格式来优化运行时内存。
+### 支持引擎  
+转换插件理论上支持的引擎版本涵盖：**Unity2019~2022、团结引擎1.x**  
+> 建议使用2021及以上版本，支持设置纹理ASTC压缩格式来优化运行时内存。  
 
-### 方案特点
-- 保持原引擎工具链与技术栈
-- 无需重写游戏核心逻辑，支持大部分第三方插件
-- 由转换工具与小米小游戏运行环境保证适配兼容，保持较高还原度
-- 小米小游戏平台能力以 C# SDK 方式提供给开发者，快速对接平台开放能力
+### 方案特点  
+- 保持原引擎工具链与技术栈  
+- 无需重写游戏核心逻辑，支持大部分第三方插件  
+- 由转换工具与小米小游戏运行环境保证适配兼容，保持较高还原度  
+- 小米小游戏平台能力以 C# SDK 方式提供给开发者，快速对接平台开放能力  
 
-### 接入流程
-接入流程主要包含以下几个环节：
+### 接入流程  
+接入流程主要包含以下几个环节：  
 
-- 阶段一 兼容性评估：初步确认技术方案是否符合游戏项目。
-- 阶段二 项目转换：可体验的 WebGL、小游戏项目。
-- 阶段三 小米小游戏平台能力接入：接入更多平台能力。
-- 阶段四 体验调优：达到可上线标准的小游戏体验。
-- 阶段五 发布上线与现网监控：上线后的问题排查与分析。
+- 阶段一 兼容性评估：初步确认技术方案是否符合游戏项目。  
+- 阶段二 项目转换：可体验的 WebGL、小游戏项目。  
+- 阶段三 小米小游戏平台能力接入：接入更多平台能力。  
+- 阶段四 体验调优：达到可上线标准的小游戏体验。  
+- 阶段五 发布上线与现网监控：上线后的问题排查与分析。  
 
-### 更新日志
-详见《[更新日志](CHANGELOG.md)》文档。
+### 更新日志  
+详见《[更新日志](CHANGELOG.md)》文档。  
 
-## 🛠️ 安装
-目前小米 SDK 仅提供以 `unitypackage` 资源包形式将 SDK 导入到游戏工程中。
+## 🛠️ 安装  
+目前小米 SDK 仅提供以 `unitypackage` 资源包形式将 SDK 导入到游戏工程中。    
 
-### 插件包安装
-UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.unitypackage)，并将插件包导入游戏工程。
+### 插件包安装  
+UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.unitypackage)，并将插件包导入游戏工程。  
 
-导入成功后Unity IDE工具栏会多出小米快游戏，如下图所示:
+导入成功后Unity IDE工具栏会多出小米快游戏，如下图所示:  
 <img src="images/tools.png" alt="小米快游戏工具栏" width="800"/>
 
 ### 插件包目录
 导入成功后，会自动在工程代码 `Assets` 目录下创建 `XIAOMI-minigame` 目录，如下图所示：
 <img src="images/catalog.png" alt="小米快游戏工具栏" width="800"/>
 
-整体结构如下：
+整体结构如下：  
 
     XIAOMI-minigame/
     ├── Editor/ # 转换工具窗口代码
@@ -74,72 +74,80 @@ UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.
 - 根目录/MiQGame/Plugins：为C#调用JS平台能力的胶水代码
 - 根目录/Runtime/：含一套C# SDK，方便C#环境调用小游戏的JS平台能力，详见使用文档《[unity游戏适配C# API](#小米-sdk-平台能力适配)》
 
-## 🚀 使用
+## 🚀 使用  
 
-### 导出小米小游戏
+### 导出小米小游戏  
 
-#### 一、Switch Platform WebGL(首次选择时需要)
-打开 **Build Settings**，选择 **WebGL**，点击 **Switch Platform**；
+#### 一、Switch Platform WebGL(首次选择时需要)  
+打开 **Build Settings**，选择 **WebGL**，点击 **Switch Platform**；  
 
-**相关配置选项建议如下：**
-    - Code Optimization 选择`Speed`，
-    - IL2CPP Code Generation 选择`Faster(smaller) builds`，
-    - Unity 2021及以上版本的 "Texture Compression" 选择 `ASTC`。
-    效果如下：
-<img src="images/buildsettings.png" alt="小米快游戏工具栏" width="500"/>
+**相关配置选项建议如下：**  
+- Code Optimization 选择`Speed`，  
+- IL2CPP Code Generation 选择`Faster(smaller) builds`，  
+- Unity 2021及以上版本的 "Texture Compression" 选择 `ASTC`。  
+效果如下：  
+<img src="images/buildsettings.png" alt="小米快游戏工具栏" width="500"/>  
 
-#### 二、转换小游戏
-1. **点击菜单栏 小米快游戏/转换快游戏**
-<img src="images/menu.png" alt="小米快游戏工具栏" width="600"/>
+#### 二、转换小游戏  
+1. **点击菜单栏 小米快游戏/转换快游戏**  
+<img src="images/menu.png" alt="小米快游戏工具栏" width="600"/>  
 
-2. **弹出操作窗口**
-<img src="images/panel.png" alt="小米快游戏工具栏" width="600"/>
+2. **弹出操作窗口**  
+<img src="images/panel.png" alt="小米快游戏工具栏" width="600"/>  
+
 参数说明：
-    - 游戏名称：小米快游戏名称。
-    - 包名：在小米快游戏中心申请的包名，一定要填写正确的包名，否则会导致加载失败。
-    - 版本号：版本号。
-    - 版本code：版本code。
-    - 自定义Loading图片链接：游戏加载过程当中页面内容，用来过渡以留住玩家
-    - 输出目录：打包输出目录，此目录每次打包都会清空，请注意选择合适的目录。
-    - 游戏屏幕方向：横屏或者竖屏。
-    - WebGL版本：WebGL1.0 或者 WebGL2.0
-    - 包类型：debug或者release包。需要签名文件，请设定签名文件所在的根目录。详见《[生成证书](#生成证书)》。
-    - data/wasm brotli压缩:  对生成的data/wasm资源进行brotli压缩，本地加载可减少包体大小，网络加载可以加快下载速度，详见《[性能优化](#-性能优化)》。
-    - build.wasm/data地址: 本地加载不填，网络加载需要填写文件http地址（brotli压缩的文件需加上.br扩展名）。
-    - StreamingAssets：使用AssteBundle或Addressable需开启，需填入StreamingAssets根目录http地址。
-    - 打包：执行打包操作。
+- 游戏名称：小米快游戏名称。
+- 包名：在小米快游戏中心申请的包名，一定要填写正确的包名，否则会导致加载失败。
+- 版本号：版本号。
+- 版本code：版本code。
+- 自定义Loading图片链接：游戏加载过程当中页面内容，用来过渡以留住玩家
+- 输出目录：打包输出目录，此目录每次打包都会清空，请注意选择合适的目录。
+- 游戏屏幕方向：横屏或者竖屏。
+- WebGL版本：WebGL1.0 或者 WebGL2.0
+- 包类型：debug或者release包。需要签名文件，请设定签名文件所在的根目录。详见《[生成证书](#生成证书)》。
+- data/wasm brotli压缩:  对生成的data/wasm资源进行brotli压缩，本地加载可减少包体大小，网络加载可以加快下载速度，详见《[性能优化](#-性能优化)》。
+- build.wasm/data地址: 本地加载不填，网络加载需要填写文件http地址（brotli压缩的文件需加上.br扩展名）。
+- StreamingAssets：使用AssteBundle或Addressable需开启，需填入StreamingAssets根目录http地址。
+- 打包：执行打包操作。  
 
-3. **打包和调试**
-打包完成会打开打包目录。如下所示：
-<img src="images/project.png" alt="小米快游戏工具栏" width="800"/>
-**MQGame**即为**小米快游戏工程**。
-转换完成会在**dist**目录下生成游戏包：
-<img src="images/rpk.png" alt="小米快游戏工具栏" width="800"/>
-在**MQGame**目录下，也可以手动执行npm命令生成快游戏包。
-    1. npm install命令安装快游戏依赖包；
-    2. npm run build 或者npm run release生成对应的debug包和release包。
-    3. 使用快应用调试器（下载地址：https://www.quickapp.cn/docCenter/post/69 ，本地安装即可启动游戏。注意：需要把调试器环境切换为：com.miui.hybrid环境！！！详见使用文档《[调试指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2123)》
-<img src="images/hybrid.png" alt="小米快游戏工具栏" width="500"/>
+3. **打包和调试**  
+打包完成会打开打包目录。如下所示：  
+    <img src="images/project.png" alt="小米快游戏工具栏" width="800"/>  
 
-### 生成证书
-#### 1. 点击菜单栏 小米快游戏/生成证书
-打开生成证书面板如下：
-<img src="images/certificateTool.png" alt="小米快游戏工具栏" width="700"/>
-#### 2. 配置参数后生成证书
-<img src="images/certificate.png" alt="小米快游戏工具栏" width="700"/>
+**MQGame**即为**小米快游戏工程**。  
+转换完成会在**dist**目录下生成游戏包：  
+
+<img src="images/rpk.png" alt="小米快游戏工具栏" width="800"/>  
+
+在**MQGame**目录下，也可以手动执行npm命令生成快游戏包。  
+    1. npm install命令安装快游戏依赖包；  
+    2. npm run build 或者npm run release生成对应的debug包和release包。  
+    3. 使用快应用调试器（下载地址：https://www.quickapp.cn/docCenter/post/69 ，本地安装即可启动游戏。注意：需要把调试器环境切换为：com.miui.hybrid环境！！！详见使用文档《[调试指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2123)》  
+<img src="images/hybrid.png" alt="小米快游戏工具栏" width="500"/>  
+
+### 生成证书  
+#### 1. 点击菜单栏 小米快游戏/生成证书  
+打开生成证书面板如下：  
+
+<img src="images/certificateTool.png" alt="小米快游戏工具栏" width="700"/>  
+
+#### 2. 配置参数后生成证书  
+
+<img src="images/certificate.png" alt="小米快游戏工具栏" width="700"/>  
 
 ## ⚡ 性能优化
 
-### 1. 包体限制及优化
+### 1. 包体限制及优化  
 
-#### 包体大小限制
+#### 包体大小限制  
 Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，线上平均网络速度 1-2Mb/s，Unity小游戏启动，需要将主包+分包（30Mb）都下载下来，才能正常渲染画面，以线上网速大概需要15~30s，耗时较长。
 
 #### 优化建议
-- 原始代码包(webgl/Build目录下的wasm文件)建议不超过30MB，建议开发者勾选"Strip Engine Code"并设置"Managed Stripping Level"为High。
-<img src="images/stripEngineCode.png" alt="小米快游戏工具栏" width="800"/>
-- 包体过大，或者遇见out of memory，可以把这两两项改为如下选项，优化包体和内存。
-<img src="images/webglsettings.png" alt="小米快游戏工具栏" width="800"/>
+- 原始代码包(webgl/Build目录下的wasm文件)建议不超过30MB，建议开发者勾选"Strip Engine Code"并设置"Managed Stripping Level"为High。  
+    <img src="images/stripEngineCode.png" alt="小米快游戏工具栏" width="800"/>
+
+- 包体过大，或者遇见out of memory，可以把这两两项改为如下选项，优化包体和内存。  
+    <img src="images/webglsettings.png" alt="小米快游戏工具栏" width="800"/>
 
 #### 优化wasm/data资源大小
 - 工具内开启brotli压缩，可显著降低data和wasm资源大小，从而降低包体大小。
@@ -156,51 +164,50 @@ Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，�
     3. 包体超限较大，需要使用网络加载wasm/data资源，强烈建议开启brotli压缩，减少资源下载时间
 2. 游戏内资源按需加载，优化可参考 使用[Addressable Assets System](https://docs.unity3d.com/Packages/com.unity.addressables@1.1/manual/index.html)或[AssetBundle](https://docs.unity3d.com/2021.3/Documentation/Manual/AssetBundlesIntro.html)进行资源按需加载。
 
-3. 小游戏移植优化
-参考 https://docs.unity.cn/cn/tuanjiemanual/Manual/MemoryOptimizationOverview.html
+3. 小游戏移植优化，参考 https://docs.unity.cn/cn/tuanjiemanual/Manual/MemoryOptimizationOverview.html
 
 ## 🔌 能力适配
 
 ### 键盘输入法适配
-**🔴 InputField适配（必须）**
-<p style="text-indent: 2em;">在挂载输入框组件的物体上，需手动挂载一个脚本。 如果使用的是 InputField (Legacy) 组件则手动挂载 WebglInput 脚本，使用的是 InputField (TMP)组件则手动挂载 WebglInputTMP 脚本。</p>
+**🔴 InputField适配（必须）**  
+在挂载输入框组件的物体上，需手动挂载一个脚本。 如果使用的是 InputField (Legacy) 组件则手动挂载 WebglInput 脚本，使用的是 InputField (TMP)组件则手动挂载 WebglInputTMP 脚本。  
 <p align="center">
-    <img src="images/input.png" alt="小米快游戏工具栏" width="400"/>
+    <img src="images/input.png" alt="小米快游戏工具栏" width="400"/><br>
     <img src="images/inputTMP.png" alt="小米快游戏工具栏" width="400"/>
 </p>
 
 ### 多点触控适配
-**🔴 重载触控**
-将 `MiTouchInputOverride.cs` 脚本挂在 Unity 中的 EventSystem 对象上。也可以对该代码做二次修改，以达到所需要的效果。
+**🔴 重载触控**  
+将 `MiTouchInputOverride.cs` 脚本挂在 Unity 中的 EventSystem 对象上。也可以对该代码做二次修改，以达到所需要的效果。  
 <p align="center">
   <img src="images/touch.png" alt="小米快游戏工具栏" width="400"/>
 </p>
 
 ### 音频适配
-目前 UnityAudio 已支持自动适配小米小游戏，优先建议使用 UnityAudio 来播放音频
+目前 UnityAudio 已支持自动适配小米小游戏，优先建议使用 UnityAudio 来播放音频  
 
-**🔴 WebAudio适配**
-在工具面板开启WebAudio选项，开启UnityAudio自动适配，可以提升游戏音频性能
+**🔴 WebAudio适配**  
+在工具面板开启WebAudio选项，开启UnityAudio自动适配，可以提升游戏音频性能  
 
 <p align="center">
-  <img src="images/webAudio.png" alt="小米快游戏工具栏" width="400"/>
+  <img src="images/webAudio.png" alt="小米快游戏工具栏" width="400"/>  
 </p>
 
-UnityAudio 原理：
-- 长音频播放使用的是InnerAudio
-- 短音频播放使用的是WebAudio
-- Unity 插件会根据音频文件大小自动适配使用不同的播放方式
+UnityAudio 原理：  
+- 长音频播放使用的是InnerAudio  
+- 短音频播放使用的是WebAudio  
+- Unity 插件会根据音频文件大小自动适配使用不同的播放方式  
 
 ### 小米 SDK 平台能力适配
-为降低Unity开发者使用平台能力门槛，在小米转换插件中我们内置了C# SDK，开发者可使用熟悉的C#语言进行平台能力的使用。
+为降低Unity开发者使用平台能力门槛，在小米转换插件中我们内置了C# SDK，开发者可使用熟悉的C#语言进行平台能力的使用。  
 
-**注意**: 游戏进度存储使用Unity的PlayerPrefs无法生效，SDK提供了小米小游戏平台的PlayerPrefs，需要区分使用。
+**注意**: 游戏进度存储使用Unity的PlayerPrefs无法生效，SDK提供了小米小游戏平台的PlayerPrefs，需要区分使用。  
 
-转换工具提供的快游戏功能有：登录、支付、广告、文件读写、创建游戏图标，key-value本地存储等。
+转换工具提供的快游戏功能有：登录、支付、广告、文件读写、创建游戏图标，key-value本地存储等。  
 
 #### 1. 初始化
 
-初始化需要在调用sdk功能之前调用，确保初始化完成，才能使用SDK功能。
+初始化需要在调用sdk功能之前调用，确保初始化完成，才能使用SDK功能。  
 
 ```csharp
 // 初始化
@@ -251,7 +258,7 @@ MiBridge.Instance.Pay(orderInfo, (success, code, msg) => {
 
 #### 4. 广告
 
-###### 4.1 Banner广告
+##### 4.1 Banner广告
 
 ```csharp
 /// <summary>
@@ -293,7 +300,7 @@ MiBridge.Instance.HideAd("f618f7543d0f768b1c58292b0616998c");
 MiBridge.Instance.DestroyAd("f618f7543d0f768b1c58292b0616998c");
 ```
 
-###### 4.2 插屏广告
+##### 4.2 插屏广告
 
 ```csharp
 /// <summary>
@@ -322,7 +329,7 @@ MiBridge.Instance.ShowAd("6e969534de88080c3a1eda5d7049477a");
 MiBridge.Instance.DestroyAd("6e969534de88080c3a1eda5d7049477a");
 ```
 
-###### 4.3 激励视频广告
+##### 4.3 激励视频广告
 **注意**：CreateRewardedVideoAd 方法创建的（激励视频广告组件）是一个单例（目前暂不支持多例），只需创建一次，需要使用的时候进行加载和展示即可
 
 ```csharp
@@ -364,7 +371,7 @@ MiBridge.Instance.ShowAd("8ff5a54ea576d425124c8b179f1bd2ad");
 
 ```
 
-###### 4.4 原生模板广告
+##### 4.4 原生模板广告
 
 ```csharp
 /// <summary>
@@ -400,7 +407,7 @@ MiBridge.Instance.DestroyAd("e9a171bfe65386da7ffecf5e5294733f");
 
 ```
 
-###### 4.5 互推盒子广告
+##### 4.5 互推盒子广告
 
 ```csharp
 /// <summary>
@@ -1039,33 +1046,33 @@ MiBridge.Instance.QGLog("hello world！");
 #### 12 自定义拓展
 请参考Unity提供的C#调用JS方法的 [代码示例](https://docs.unity.cn/cn/current/Manual/webgl-interactingwithbrowserscripting.html)
 
-主要在Plugins中的JS插件(MiBridge.jslib)编写JS代码及在MiBridge.cs封装调用入口
+主要在Plugins中的JS插件(MiBridge.jslib)编写JS代码及在MiBridge.cs封装调用入口  
 
 
 ## ❓ 常见问题 (QA)
-**1. 手机打开出现加载失败，请重试的页面**
-  1. 检查包名是否在小米开发者平台注册过
-  2. 如果确认包名没问题，可以用测试包名来测试 com.demo.ch.mini
+**1. 手机打开出现加载失败，请重试的页面**  
+  1. 检查包名是否在小米开发者平台注册过  
+  2. 如果确认包名没问题，可以用测试包名来测试 com.demo.ch.mini  
 
-**2. 手机打开游戏一直处于白屏状态，是什么原因？**
-  1. 第一种解决办法：可以把wasm文件进行brotli压缩放在服务器上
-  2. 第二种解决办法：检查手机是否是低端机，如果是低端机可以换成性能好的高端机，启动起来游戏，然后做brotli压缩处理。
-  3. 第三种解决办法：检查wasm是否过大，如果过大请优化，建议**30M**以下。
-  4. **最新解决方案：小米快游戏框架适配了Unity运行环境，具体使用方法，请参照文档：**
-      - 地址：https://kpan.mioffice.cn/webfolder/ext/lZANuok7gGv%24uVm31GQvyw%40%40?n=0.8576258153420848
-      - 密码：BE4E
+**2. 手机打开游戏一直处于白屏状态，是什么原因？**  
+  1. 第一种解决办法：可以把wasm文件进行brotli压缩放在服务器上  
+  2. 第二种解决办法：检查手机是否是低端机，如果是低端机可以换成性能好的高端机，启动起来游戏，然后做brotli压缩处理。  
+  3. 第三种解决办法：检查wasm是否过大，如果过大请优化，建议**30M**以下。  
+  4. **最新解决方案：小米快游戏框架适配了Unity运行环境，具体使用方法，请参照文档：**  
+      - 地址：https://kpan.mioffice.cn/webfolder/ext/lZANuok7gGv%24uVm31GQvyw%40%40?n=0.8576258153420848  
+      - 密码：BE4E  
 
 **3. 引入SDK之后，遇见EditorCoroutines找不到的问题**
-  1. 请在package manager里面搜索EditorCoroutines安装即可。
-  <img src="images/editorCoroutine.png" alt="小米快游戏工具栏" width="600"/>
+  1. 请在package manager里面搜索EditorCoroutines安装即可。  
+    <img src="images/editorCoroutine.png" alt="小米快游戏工具栏" width="600"/></br>  
 
 **4. 引入SDK之后，遇见'TMPro'找不到的问题**
-  1. 方法一：工程没有用到**TextMeshPro** ，将工具**WebglInputTMP**脚本删除即可
-    <img src="images/webglTMP.png" alt="小米快游戏工具栏" width="400"/>
+  1. 方法一：工程没有用到**TextMeshPro** ，将工具**WebglInputTMP**脚本删除即可  
+    <img src="images/webglTMP.png" alt="小米快游戏工具栏" width="400"/></br>  
 
-  2. 方法二：请在package manager里面搜索**TextMeshPro**安装即可。
-    <img src="images/TMP.png" alt="小米快游戏工具栏" width="600"/>
+  2. 方法二：请在package manager里面搜索**TextMeshPro**安装即可。  
+    <img src="images/TMP.png" alt="小米快游戏工具栏" width="600"/>  
 
 **5. 点击打包按钮没有反应**
-  1. 是参数设置问题，重点检查data url，wasm url，streamassets url三个url是否有相等的情况。
-  解决办法：把三个url改成不同的即可。
+  1. 是参数设置问题，重点检查data url，wasm url，streamassets url三个url是否有相等的情况。  
+  解决办法：把三个url改成不同的即可。  
