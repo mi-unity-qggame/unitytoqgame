@@ -103,7 +103,7 @@ UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.
     - 输出目录：打包输出目录，此目录每次打包都会清空，请注意选择合适的目录。
     - 游戏屏幕方向：横屏或者竖屏。
     - WebGL版本：WebGL1.0 或者 WebGL2.0
-    - 包类型：debug或者release包。需要签名文件，请设定签名文件所在的根目录。详见《[生成证书](#生成证书)》 。
+    - 包类型：debug或者release包。需要签名文件，请设定签名文件所在的根目录。详见《[生成证书](#生成证书)》。
     - data/wasm brotli压缩:  对生成的data/wasm资源进行brotli压缩，本地加载可减少包体大小，网络加载可以加快下载速度，详见《[性能优化](#-性能优化)》。
     - build.wasm/data地址: 本地加载不填，网络加载需要填写文件http地址（brotli压缩的文件需加上.br扩展名）。
     - StreamingAssets：使用AssteBundle或Addressable需开启，需填入StreamingAssets根目录http地址。
@@ -112,10 +112,10 @@ UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.
 3. **打包和调试**
 打包完成会打开打包目录。如下所示：
 <img src="images/project.png" alt="小米快游戏工具栏" width="800"/>
-<span style="color:rgb(52, 107, 231);">MQGame</span>即为**小米快游戏工程**。
-转换完成会在<span style="color:rgb(52, 107, 231);">dist</span>目录下生成游戏包：
+**MQGame**即为**小米快游戏工程**。
+转换完成会在**dist**目录下生成游戏包：
 <img src="images/rpk.png" alt="小米快游戏工具栏" width="800"/>
-在<span style="color:rgb(52, 107, 231);">MQGame</span>目录下，也可以手动执行npm命令生成快游戏包。
+在**MQGame**目录下，也可以手动执行npm命令生成快游戏包。
     1. npm install命令安装快游戏依赖包；
     2. npm run build 或者npm run release生成对应的debug包和release包。
     3. 使用快应用调试器（下载地址：https://www.quickapp.cn/docCenter/post/69 ，本地安装即可启动游戏。注意：需要把调试器环境切换为：com.miui.hybrid环境！！！详见使用文档《[调试指南](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2123)》
@@ -162,7 +162,7 @@ Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，�
 ## 🔌 能力适配
 
 ### 键盘输入法适配
-<span style="color:rgb(255, 0, 0);">InputField适配（必须）</span>
+**🔴 InputField适配（必须）**
 <p style="text-indent: 2em;">在挂载输入框组件的物体上，需手动挂载一个脚本。 如果使用的是 InputField (Legacy) 组件则手动挂载 WebglInput 脚本，使用的是 InputField (TMP)组件则手动挂载 WebglInputTMP 脚本。</p>
 <p align="center">
     <img src="images/input.png" alt="小米快游戏工具栏" width="400"/>
@@ -170,7 +170,7 @@ Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，�
 </p>
 
 ### 多点触控适配
-<span style="color:rgb(255, 0, 0);">重载触控 </span>
+**🔴 重载触控**
 将 `MiTouchInputOverride.cs` 脚本挂在 Unity 中的 EventSystem 对象上。也可以对该代码做二次修改，以达到所需要的效果。
 <p align="center">
   <img src="images/touch.png" alt="小米快游戏工具栏" width="400"/>
@@ -179,7 +179,7 @@ Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，�
 ### 音频适配
 目前 UnityAudio 已支持自动适配小米小游戏，优先建议使用 UnityAudio 来播放音频
 
-<span style="color:rgb(255, 0, 0);">WebAudio适配 </span>
+**🔴 WebAudio适配**
 在工具面板开启WebAudio选项，开启UnityAudio自动适配，可以提升游戏音频性能
 
 <p align="center">
