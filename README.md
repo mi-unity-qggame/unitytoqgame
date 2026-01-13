@@ -37,10 +37,13 @@
 详见《[更新日志](CHANGELOG.md)》文档。  
 
 ## 🛠️ 安装  
-目前小米 SDK 仅提供以 `unitypackage` 资源包形式将 SDK 导入到游戏工程中。    
+### Package 方式安装
+打开游戏工程 -> Unity/团结引擎 Editor 菜单栏 -> Package Manager -> 右上方 “+” -> Add package from git URL URL地址为：
+https://github.com/XiaoMi/xiaomi-minigame-tuanjie-transform-sdk.git
+即可完成SDK导入。
 
 ### 插件包安装  
-UnityPackage: [点击下载unity工具插件1.6.0版本](MiQGameConverter_1.6.0.unitypackage)，并将插件包导入游戏工程。  
+UnityPackage: [点击下载unity工具插件1.6.1版本](MiQGameConverter_1.6.1.unitypackage)，并将插件包导入游戏工程。  
 
 导入成功后Unity IDE工具栏会多出小米快游戏，如下图所示:  
 <img src="images/tools.png" alt="小米快游戏工具栏" width="800"/>
@@ -164,7 +167,47 @@ Unity插件导出的小游戏包体大小较大，目前分包在30MB左右，�
     3. 包体超限较大，需要使用网络加载wasm/data资源，强烈建议开启brotli压缩，减少资源下载时间
 2. 游戏内资源按需加载，优化可参考 使用[Addressable Assets System](https://docs.unity3d.com/Packages/com.unity.addressables@1.1/manual/index.html)或[AssetBundle](https://docs.unity3d.com/2021.3/Documentation/Manual/AssetBundlesIntro.html)进行资源按需加载。
 
-3. 小游戏移植优化，参考 https://docs.unity.cn/cn/tuanjiemanual/Manual/MemoryOptimizationOverview.html
+### 3. 使用预下载功能
+#### 概述
+Unity小游戏从解压完rpk到游戏首帧加载过程中，并未进入到真正运行游戏阶段，此时可以利用网络空闲状态提前去下载游戏中用到的动态资源，比如AssetBundle\Addressable\配置文件等，当游戏使用该资源时直接本地加载，无需再次网络IO操作，从而提高游戏的流畅度。  
+  
+预下载的列表的原理是提前通过网络下载资源并缓存到本地，下次使用时从本地缓存中读取文件，以此提高资源加载速度。  
+
+#### 配置方式
+##### 导出预下载列表
+在Unity工具面板填写文件列表，插件目前支持最长10个文件，建议文件总体积尽量小（3~5M），生成时工具会自动从 MiQGameBuild/StreamAssets 目录找资源并填充到env.conf。 
+   
+<img src="images/preload.png" alt="小米快游戏工具栏" width="800"/>  
+  
+打包成功后会在 env.conf 文件中生成 preloadUrl 字段，格式如下：  
+
+```json
+{
+  "preloadUrl":"https://preloadlist.x/StreamingAssets/defaultlocalgroup_assets_all;"
+}
+```  
+  
+所有的资源地址会拼接成一个字符串，中间用;分割开。游戏运行前将根据列表内容进行下载。  
+
+##### 手动配置
+除了在Unity工具面板填写文件列表外，也可以在生成的 env.conf 手动配置，修改配置文件的preloadUrl字段（需填写完整路径），按照上述规则拼接资源地址：  
+
+```json
+{
+  "preloadUrl":"https://preloadlist.x/StreamingAssets/defaultlocalgroup_assets_all;https://preloadlist.x/StreamingAssets/file1;"
+}
+```  
+
+#### 路径规范
+- 若填写完整路径，如`https://preloadlist.x/StreamingAssets/defaultlocalgroup_assets_all`;实际发起预下载请求的URL采用填写的地址  
+- 若填写相对路径（仅工具面板内支持），如defaultlocalgroup_assets_all;实际发起请求的URL为 `StreamingAssets路径/defaultlocalgroup_assets_all`  
+
+#### 注意事项
+1. 预下载所有文件总体积应控制在合理范围内，通常可以3~5MB左右的内容。  
+2. 文件数量应控制在10个以内，建议不要超过10个，以免并发下载过多造成启动卡顿  
+
+### 4. 小游戏移植优化
+参考 https://docs.unity.cn/cn/tuanjiemanual/Manual/MemoryOptimizationOverview.html
 
 ## 🔌 能力适配
 
